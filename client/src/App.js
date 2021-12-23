@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import React from "react";
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Header from './components/Header';
 import ProductList from './components/ProductList';
 import Home from './components/Home';
@@ -12,7 +12,10 @@ import SignUp from './components/SignUp';
 function App() {
   const [products, setProducts] = useState([]);
   const [timedPopup, setTimedPopup] = useState(false);
-  
+  const [email, setEmail] = useState('');
+  const [errors, setErrors] = useState(null);
+
+  let errorsList = errors ? errors.map(e => <li key={e}>{e}</li>) : <></>
 
   useEffect(() => {
     fetch('/api/products')
@@ -21,15 +24,40 @@ function App() {
     .catch(err => console.error(err));
 }, [])
 
+useEffect(() => {
+  setTimeout(() => {
+    setTimedPopup(true);
+  }, 3000);
+}, []);
+
+const handleSubmit = (event) => {
+  event.preventDefault();
+
+  fetch('/api/signup', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+      email : email,
+  })
+  })
+  .then(res => {
+      if (res.ok) {
+      res.json().then(user => {
+          setEmail(user)
+          setTimedPopup(false);
+      })
+      } else {
+      res.json().then(errors => {
+          setErrors(errors.errors)
+      })
+      }
+  })
+}
 
 
-  console.log(products)
+  console.log(errorsList)
 
-  useEffect(() => {
-    setTimeout(() => {
-      setTimedPopup(true);
-    }, 3000);
-  }, []);
+
 
   return (
     <div>
@@ -42,8 +70,16 @@ function App() {
       </Switch>
       <Popup trigger={timedPopup} setTrigger={setTimedPopup}>
                 <h2>Welcome To Gabby's Salsa!</h2><br/>
-                <p>Sign Up here for all the deets!  Upcoming events, updates to the menus, and specials!</p><br/>
-                <Link to='/signUp' onClick={() =>setTimedPopup(false)}>Sign Up</Link>
+                <p>Signup here to receive Gabby's newsletter with all the deets!  Upcoming events, updates to the menu, and specials!</p><br/>
+                {/* <Link to='/signUp' onClick={() =>setTimedPopup(false)}>Sign Up</Link> */}
+                  <input
+                    type="text"
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email"
+                  />
+                  <button type="text" onClick={handleSubmit}>Submit</button>
       </Popup>
       </main>
     </div>

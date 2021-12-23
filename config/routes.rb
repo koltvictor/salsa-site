@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   namespace :api do 
 
     resources :products, only: [:index]
-    resources :users
+    resources :users, only: [:create, :show]
+
+    post '/signup', to: 'users#create'
     
 
   end
