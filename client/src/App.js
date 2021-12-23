@@ -1,21 +1,35 @@
 import { useState, useEffect } from "react";
 import React from "react";
-import { Switch, Route, useHistory, Link } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import Header from './components/Header';
+import ProductList from './components/ProductList';
 import Home from './components/Home';
 import Popup from './components/Popup';
 import SignUp from './components/SignUp';
 
 
+
 function App() {
+  const [products, setProducts] = useState([]);
   const [timedPopup, setTimedPopup] = useState(false);
+  
+
+  useEffect(() => {
+    fetch('/api/products')
+    .then((r) => r.json())
+    .then((data) => setProducts(data))
+    .catch(err => console.error(err));
+}, [])
+
+
+
+  console.log(products)
 
   useEffect(() => {
     setTimeout(() => {
       setTimedPopup(true);
     }, 3000);
   }, []);
-
 
   return (
     <div>
@@ -24,6 +38,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/signUp" component={SignUp} />
+        <Route exact path='/products' component={ProductList} products={products} />
       </Switch>
       <Popup trigger={timedPopup} setTrigger={setTimedPopup}>
                 <h2>Welcome To Gabby's Salsa!</h2><br/>

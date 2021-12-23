@@ -4,6 +4,12 @@
   font-family: 'Fira Sans', sans-serif;
 }
 
+.header{
+  text-align: center;
+  font-size: 1.5em;
+  padding-top: 0.5em;
+}
+
 .navigation {
   /* position: relative; */
   display: flex;
@@ -12,4 +18,5 @@
   color: white;
   text-decoration: underline;
   font-family: sans-serif;
+  margin-left: -18rem;
 }

@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  
-  get '/hello', to: 'application#hello_world'
 
   namespace :api do 
 
+    resources :products, only: [:index]
+    resources :users
     
 
   end
