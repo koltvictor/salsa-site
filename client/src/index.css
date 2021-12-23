@@ -2,6 +2,14 @@
   margin: 0;
   padding: 0;
   font-family: 'Fira Sans', sans-serif;
+}
 
-
+.navigation {
+  /* position: relative; */
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 1rem;
+  color: white;
+  text-decoration: underline;
+  font-family: sans-serif;
 }

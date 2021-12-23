@@ -6,7 +6,7 @@ export default function Header () {
         <div className="headerWrapper">
             <div className="header">Gabby's Salsa</div>
 
-            <div className="nav"><br/>
+            <div className="navigation"><br/>
                 <Link to="/">Home</Link>
                 <Link to="/about">About</Link>
                 <Link to="/contact">Contact</Link>
