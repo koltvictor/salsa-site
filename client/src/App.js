@@ -79,6 +79,7 @@ const handleSubmit = (event) => {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email"
                   />
+                  {errorsList}
                   <button type="text" onClick={handleSubmit}>Submit</button>
       </Popup>
       </main>
