@@ -5,7 +5,6 @@ export default function Header () {
     return(
         <div className="headerWrapper">
             <div className="header">Gabby's Salsa</div>
-            <br/><br/>
             <div className="navigation"><br/>
                 <Link to="/">Home</Link>
                 <Link to="/about">About</Link>
@@ -14,7 +13,6 @@ export default function Header () {
                 <Link to="/me">Me</Link>
                 <Link to="/cart">Cart</Link>
             </div>    
-            <br/>
         </div>
     )
 }
