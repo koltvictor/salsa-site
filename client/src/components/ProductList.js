@@ -1,8 +1,17 @@
 import ProductCard from './ProductCard';
+import { useState, useEffect } from 'react';
 
-export default function ProductList ({products}) {
-    console.log(products);
-    const product = products.map(product => {
+export default function ProductList () {
+    const [productList, setProductList] = useState([]);
+    
+    useEffect(() => {
+        fetch('/api/products')
+        .then((r) => r.json())
+        .then((data) => setProductList(data))
+    }, [])
+
+    console.log(productList);
+    const product = productList.map(product => {
         return(
             <ProductCard
                 key={product.id}

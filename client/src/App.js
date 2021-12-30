@@ -10,24 +10,19 @@ import SignUp from './components/SignUp';
 
 
 function App() {
-  const [products, setProducts] = useState([]);
+  
   const [timedPopup, setTimedPopup] = useState(false);
   const [email, setEmail] = useState('');
   const [errors, setErrors] = useState(null);
 
   let errorsList = errors ? errors.map(e => <li key={e}>{e}</li>) : <></>
 
-  useEffect(() => {
-    fetch('/api/products')
-    .then((r) => r.json())
-    .then((data) => setProducts(data))
-    .catch(err => console.error(err));
-}, [])
+
 
 useEffect(() => {
   setTimeout(() => {
     setTimedPopup(true);
-  }, 3000);
+  }, 10000);
 }, []);
 
 const handleSubmit = (event) => {
@@ -54,7 +49,6 @@ const handleSubmit = (event) => {
   })
 }
 
-
   console.log(errorsList)
 
 
@@ -66,7 +60,7 @@ const handleSubmit = (event) => {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/signUp" component={SignUp} />
-        <Route exact path='/products' component={ProductList} products={products} />
+        <Route exact path='/products' component={ProductList} />
       </Switch>
       <Popup trigger={timedPopup} setTrigger={setTimedPopup}>
                 <h2>Welcome To Gabby's Salsa!</h2><br/>
@@ -79,8 +73,10 @@ const handleSubmit = (event) => {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email"
                   />
-                  {errorsList}
+                  
                   <button type="text" onClick={handleSubmit}>Submit</button>
+
+                  {errorsList}
       </Popup>
       </main>
     </div>
