@@ -14,7 +14,7 @@ export default function ProductList () {
     const product = productList.map(product => {
         return(
             <ProductCard
-                key={product.id}
+                key={product.name}
                 product={product}
             />   
         )

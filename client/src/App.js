@@ -4,6 +4,8 @@ import { Switch, Route } from 'react-router-dom';
 import Header from './components/Header';
 import ProductList from './components/ProductList';
 import Home from './components/Home';
+import About from './components/About';
+import Contact from './components/Contact';
 import Popup from './components/Popup';
 import SignUp from './components/SignUp';
 
@@ -61,6 +63,8 @@ const handleSubmit = (event) => {
         <Route exact path="/" component={Home} />
         <Route exact path="/signUp" component={SignUp} />
         <Route exact path='/products' component={ProductList} />
+        <Route exact path='/about' component={About} />
+        <Route exact path='/contact' component={Contact} />
       </Switch>
       <Popup trigger={timedPopup} setTrigger={setTimedPopup}>
                 <h2>Welcome To Gabby's Salsa!</h2><br/>
