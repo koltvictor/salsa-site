@@ -125,7 +125,7 @@
   /* position: relative; */
   display: flex;
   justify-content: space-around;
-  background-color: #2372da;
+  background-color: #000000;
   padding-bottom: 1rem;
   color: white;
   text-decoration: underline;
@@ -154,8 +154,8 @@
 }
 
 .homeWrapper{
-  background-image: url('https://samsfamoussalsa.com/wp-content/uploads/2020/08/sams-salsa-tabletop.jpg');
-  background-color: rgb(255, 115, 0);
+  /* background-image: url('https://samsfamoussalsa.com/wp-content/uploads/2020/08/sams-salsa-tabletop.jpg'); */
+  background-color: rgb(226, 124, 41);
   background-repeat: no-repeat;
   padding-top: 30vh;
   background-attachment: fixed;
