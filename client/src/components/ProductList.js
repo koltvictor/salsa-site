@@ -1,7 +1,7 @@
 import ProductCard from './ProductCard';
 import { useState, useEffect } from 'react';
 
-export default function ProductList () {
+export default function ProductList ({cartItems, setCartItems}) {
     const [productList, setProductList] = useState([]);
     
     useEffect(() => {
@@ -10,12 +10,26 @@ export default function ProductList () {
         .then((data) => setProductList(data))
     }, [])
 
-    console.log(productList);
+    console.log(cartItems)
+
+    function handleAddToCart({product}) {
+        const itemExist= cartItems.find(x => x.id === product.id)
+        if (itemExist) {
+            setCartItems(cartItems.map(x=> x.id === product.id ? {...itemExist, qty: itemExist.qty + 1 } : x))
+        }
+        else {
+            setCartItems([...cartItems, {...product, qty:1}])
+        }
+        localStorage.setItem('cartItems', JSON.stringify(cartItems))
+        console.log(localStorage)
+    }
+
     const product = productList.map(product => {
         return(
             <ProductCard
                 key={product.name}
                 product={product}
+                handleAddToCart={handleAddToCart}
             />   
         )
     })

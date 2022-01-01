@@ -16,6 +16,7 @@ function App() {
   const [timedPopup, setTimedPopup] = useState(false);
   const [email, setEmail] = useState('');
   const [errors, setErrors] = useState(null);
+  const [cartItems, setCartItems] = useState([]);
 
   let errorsList = errors ? errors.map(e => <li key={e}>{e}</li>) : <></>
 
@@ -26,6 +27,7 @@ useEffect(() => {
     setTimedPopup(true);
   }, 10000);
 }, []);
+
 
 const handleSubmit = (event) => {
   event.preventDefault();
@@ -51,9 +53,7 @@ const handleSubmit = (event) => {
   })
 }
 
-  console.log(errorsList)
-
-
+console.log(cartItems)
 
   return (
     <div>
@@ -62,7 +62,10 @@ const handleSubmit = (event) => {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/signUp" component={SignUp} />
-        <Route exact path='/products' component={ProductList} />
+        <Route exact path='/products' component={ProductList} 
+          setCartItems={setCartItems}
+          cartItems={cartItems}
+        />
         <Route exact path='/about' component={About} />
         <Route exact path='/contact' component={Contact} />
       </Switch>
