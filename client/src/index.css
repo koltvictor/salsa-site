@@ -154,8 +154,8 @@
 }
 
 .homeWrapper{
-  /* background-image: url('https://samsfamoussalsa.com/wp-content/uploads/2020/08/sams-salsa-tabletop.jpg'); */
-  background-color: rgb(226, 124, 41);
+  background-image: url('https://samsfamoussalsa.com/wp-content/uploads/2020/08/sams-salsa-tabletop.jpg');
+  /* background-color: rgb(226, 124, 41); */
   background-repeat: no-repeat;
   padding-top: 30vh;
   background-attachment: fixed;
