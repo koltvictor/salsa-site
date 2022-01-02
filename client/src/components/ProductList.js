@@ -1,20 +1,14 @@
 import ProductCard from './ProductCard';
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 
-export default function ProductList () {
-    const [productList, setProductList] = useState([]);
-    
-    useEffect(() => {
-        fetch('/api/products')
-        .then((r) => r.json())
-        .then((data) => setProductList(data))
-    }, [])
+export default function ProductList ({productList, handleAddToCart}) {
 
     const product = productList.map(product => {
         return(
             <ProductCard
-                key={product.name}
+                key={product.id}
                 product={product}
+                handleAddToCart={handleAddToCart}
             />   
         )
     })

@@ -11,19 +11,55 @@ import SignUp from './components/SignUp';
 
 
 
-function App() {
+export default function App() {
   
+  const [cartItems, setCartItems] = useState([])    
+  const [productList, setProductList] = useState([]);
+  const [loading, setLoading] = useState(false)
   const [timedPopup, setTimedPopup] = useState(false);
   const [email, setEmail] = useState('');
   const [errors, setErrors] = useState(null);
 
-  let errorsList = errors ? errors.map(e => <li key={e}>{e}</li>) : <></>
+  useEffect(() => {
+    setLoading(true);
+      fetch('/api/products')
+      .then((r) => r.json())
+      .then((data) => {setProductList(data)
+      })
+      .catch((err) => {setErrors(err)})
+      .finally(() => {setLoading(false)})
+  }, [])
+  console.log(productList)
 
   useEffect(() => {
     setTimeout(() => {
       setTimedPopup(true);
     }, 10000);
   }, []);
+
+  function handleAddToCart({product}) {
+      const itemExist= cartItems.find(x => x.id === product.id)
+      if (itemExist) {
+          setCartItems(cartItems.map(x=> x.id === product.id ? {...itemExist, qty: itemExist.qty + 1 } : x))
+      }
+      else {
+          setCartItems([...cartItems, {...product, qty:1}])
+      }
+      localStorage.setItem('cartItems', JSON.stringify(cartItems))
+      console.log(localStorage)
+  }
+
+  if (loading) {
+    return <p>Data is loading...</p>;
+  }
+
+  // if (errors || !Array.isArray(productList)) {
+  //   return <p>There was an error loading your data!</p>;
+  // }
+
+  // let errorsList = errors ? errors.map(e => <li key={e}>{e}</li>) : <></>
+
+
 
 
   const handleSubmit = (event) => {
@@ -57,29 +93,30 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/signUp" component={SignUp} />
-        <Route exact path='/products' component={ProductList} />
+        <Route exact path='/products' component={ProductList} 
+          productList={productList} 
+          cartItems={cartItems} 
+          handleAddToCart={handleAddToCart} 
+        />
         <Route exact path='/about' component={About} />
         <Route exact path='/contact' component={Contact} />
       </Switch>
       <Popup trigger={timedPopup} setTrigger={setTimedPopup}>
-                <h2>Welcome To Gabby's Salsa!</h2><br/>
-                <p>Signup here to receive Gabby's newsletter with all the deets!  Upcoming events, updates to the menu, and specials!</p><br/>
-                {/* <Link to='/signUp' onClick={() =>setTimedPopup(false)}>Sign Up</Link> */}
-                  <input
-                    type="text"
-                    name="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Email"
-                  />
+        <h2>Welcome To Gabby's Salsa!</h2><br/>
+        <p>Signup here to receive Gabby's newsletter with all the deets!  Upcoming events, updates to the menu, and specials!</p><br/>
+        <input
+          type="text"
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+        />
                   
-                  <button type="text" onClick={handleSubmit}>Submit</button>
+        <button type="text" onClick={handleSubmit}>Submit</button>
 
-                  {errorsList}
+                  
       </Popup>
       </main>
     </div>
   );
 }
-
-export default App;

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
     resources :products
     resources :users, only: [:create, :show]
-
+    get '/menu', to: 'products#index'
     post '/signup', to: 'users#create'
     
 
