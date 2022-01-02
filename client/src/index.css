@@ -96,7 +96,7 @@
   padding: 1rem;
   background-color: #000;
   color: hotpink;
-  text-shadow: 2px 2px rgb(211, 48, 129);
+  text-shadow: 2px 2px rgb(212, 50, 45);
   font-family: Noteworthy;
   font-size: 3rem;
   font-weight: bold;
@@ -155,7 +155,6 @@
 
 .homeWrapper{
   background-image: url('https://samsfamoussalsa.com/wp-content/uploads/2020/08/sams-salsa-tabletop.jpg');
-  /* background-color: rgb(226, 124, 41); */
   background-repeat: no-repeat;
   padding-top: 30vh;
   background-attachment: fixed;

@@ -16,44 +16,39 @@ function App() {
   const [timedPopup, setTimedPopup] = useState(false);
   const [email, setEmail] = useState('');
   const [errors, setErrors] = useState(null);
-  const [cartItems, setCartItems] = useState([]);
 
   let errorsList = errors ? errors.map(e => <li key={e}>{e}</li>) : <></>
 
+  useEffect(() => {
+    setTimeout(() => {
+      setTimedPopup(true);
+    }, 10000);
+  }, []);
 
 
-useEffect(() => {
-  setTimeout(() => {
-    setTimedPopup(true);
-  }, 10000);
-}, []);
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-
-const handleSubmit = (event) => {
-  event.preventDefault();
-
-  fetch('/api/signup', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-      email : email,
-  })
-  })
-  .then(res => {
-      if (res.ok) {
-      res.json().then(user => {
-          setEmail(user)
-          setTimedPopup(false);
-      })
-      } else {
-      res.json().then(errors => {
-          setErrors(errors.errors)
-      })
-      }
-  })
-}
-
-console.log(cartItems)
+    fetch('/api/signup', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+        email : email,
+    })
+    })
+    .then(res => {
+        if (res.ok) {
+        res.json().then(user => {
+            setEmail(user)
+            setTimedPopup(false);
+        })
+        } else {
+        res.json().then(errors => {
+            setErrors(errors.errors)
+        })
+        }
+    })
+  }
 
   return (
     <div>
@@ -62,10 +57,7 @@ console.log(cartItems)
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/signUp" component={SignUp} />
-        <Route exact path='/products' component={ProductList} 
-          setCartItems={setCartItems}
-          cartItems={cartItems}
-        />
+        <Route exact path='/products' component={ProductList} />
         <Route exact path='/about' component={About} />
         <Route exact path='/contact' component={Contact} />
       </Switch>
