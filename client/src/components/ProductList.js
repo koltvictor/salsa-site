@@ -17,7 +17,6 @@ export default function ProductList ({handleAddToCart, setErrors, errors}) {
 
       console.log(productList)
 
-
     if (loading) {
         return <p>Data is loading...</p>;
       }

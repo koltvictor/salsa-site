@@ -17,6 +17,7 @@ export default function App() {
   const [timedPopup, setTimedPopup] = useState(false);
   const [email, setEmail] = useState('');
   const [errors, setErrors] = useState(null);
+  const items = JSON.parse(localStorage.getItem('cartItems'))
 
   useEffect(() => {
     setTimeout(() => {
@@ -36,16 +37,11 @@ export default function App() {
       console.log(localStorage)
   }
 
-
-
   // if (errors || !Array.isArray(productList)) {
   //   return <p>There was an error loading your data!</p>;
   // }
 
   // let errorsList = errors ? errors.map(e => <li key={e}>{e}</li>) : <></>
-
-
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
