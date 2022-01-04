@@ -14,22 +14,9 @@ import SignUp from './components/SignUp';
 export default function App() {
   
   const [cartItems, setCartItems] = useState([])    
-  const [productList, setProductList] = useState([]);
-  const [loading, setLoading] = useState(false)
   const [timedPopup, setTimedPopup] = useState(false);
   const [email, setEmail] = useState('');
   const [errors, setErrors] = useState(null);
-
-  useEffect(() => {
-    setLoading(true);
-      fetch('/api/products')
-      .then((r) => r.json())
-      .then((data) => {setProductList(data)
-      })
-      .catch((err) => {setErrors(err)})
-      .finally(() => {setLoading(false)})
-  }, [])
-  console.log(productList)
 
   useEffect(() => {
     setTimeout(() => {
@@ -49,9 +36,7 @@ export default function App() {
       console.log(localStorage)
   }
 
-  if (loading) {
-    return <p>Data is loading...</p>;
-  }
+
 
   // if (errors || !Array.isArray(productList)) {
   //   return <p>There was an error loading your data!</p>;
@@ -94,9 +79,10 @@ export default function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/signUp" component={SignUp} />
         <Route exact path='/products' component={ProductList} 
-          productList={productList} 
           cartItems={cartItems} 
           handleAddToCart={handleAddToCart} 
+          setErrors={setErrors}
+          errors={errors}
         />
         <Route exact path='/about' component={About} />
         <Route exact path='/contact' component={Contact} />

@@ -1,7 +1,26 @@
 import ProductCard from './ProductCard';
-// import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
-export default function ProductList ({productList, handleAddToCart}) {
+export default function ProductList ({handleAddToCart, setErrors, errors}) {
+    const [productList, setProductList] = useState([]);
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        setLoading(true);
+          fetch('/api/products')
+          .then((r) => r.json())
+          .then((data) => {setProductList(data)
+          })
+          .catch((err) => {setErrors(err)})
+          .finally(() => {setLoading(false)})
+      }, [])
+
+      console.log(productList)
+
+
+    if (loading) {
+        return <p>Data is loading...</p>;
+      }
 
     const product = productList.map(product => {
         return(
